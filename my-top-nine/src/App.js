@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import Login from './components/Login/Login';
 import './App.css';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, logout } from './components/actions';
+import { login, logout, signup } from './components/actions';
+import Login from './components/Login/Login';
+import SignUp from './components/Login/SignUp';
 import NavBar from './components/Navigation/NavBar';
 import HomePage from './components/HomePage/HomePage';
-import UserPage from './components/UserPage/UserPage'
+import UserPage from './components/UserPage/UserPage';
+
+import { users } from './dummy-data'
 
 class App extends Component {
 
@@ -14,6 +17,12 @@ class App extends Component {
     user: {
       username: '',
       password: '',
+    },
+    newUser: {
+      email: '',
+      username: '',
+      password1: '',
+      password2: '',
     }
   }
 
@@ -28,6 +37,16 @@ class App extends Component {
 
   handleLoginSumbit = e => {
     e.preventDefault();
+    const usernames = users.map(user => user.username);
+    const currentUser = users.filter(user => user.username === this.state.user.username);
+    console.log(currentUser);
+    if (!this.state.user.username || !this.state.user.password) {
+      alert('Please fill in all fields.')
+    } else if (!usernames.includes(this.state.user.username)) {      
+      alert('Username does not exist. Please Sign Up.')
+    } else if (currentUser[0].password !== this.state.user.password) {      
+      alert('Incorrect Password.')
+    } else {
     this.props.login(this.state.user)
     this.setState(
       { user: {
@@ -36,10 +55,40 @@ class App extends Component {
       }
     });
     document.getElementById("loginForm").reset();
+    }
+  }
+
+  handleSignUpInput = e => {
+    this.setState({
+      newUser: {
+      ...this.state.newUser,
+      [e.target.name]: e.target.value
+      }
+    });
+  }
+
+  handleSingUpSumbit = e => {
+    e.preventDefault();
+    if (this.state.newUser.password1 !== this.state.newUser.password2) {      
+      alert('Passwords do not match!')
+    } else if (!this.state.newUser.email || !this.state.newUser.username || !this.state.newUser.password1 || !this.state.newUser.password2) {
+      alert('Please fill in all fields.');
+    } else {
+    this.props.signup(this.state.newUser)
+    this.setState(
+      { newUser: {
+        email: '',
+        username: '',
+        password1: '',
+        password2: '',
+      }
+    });
+    document.getElementById("signupForm").reset();
+    } 
   }
 
   handleLogout = () => {
-    this.props.logout()
+    this.props.logout();
   }
 
   render() {
@@ -59,14 +108,33 @@ class App extends Component {
               {...props}
               username={this.props.user.username}
             />
-          )} />
-          </div>
-        : <Login 
-            username={this.state.username}
-            password={this.state.password}
-            handleLoginInput= {this.handleLoginInput}
-            handleLoginSumbit = {this.handleLoginSumbit}
+            )}
           />
+          </div>
+        : <div>
+          <Route 
+            exact path='/' 
+            render={ props => (
+              <Login
+                {...props}
+                user={this.state.user}
+                handleLoginInput= {this.handleLoginInput}
+                handleLoginSumbit = {this.handleLoginSumbit}
+              />
+            )} 
+          />
+          <Route 
+            exact path='/signup' 
+            render={ props => (
+              <SignUp
+                {...props}
+                newUser={this.state.newUser}
+                handleSignUpInput= {this.handleSignUpInput}
+                handleSingUpSumbit = {this.handleSingUpSumbit}
+              />
+            )} 
+          />
+          </div>
         }
         
       </div>
@@ -82,5 +150,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {login, logout}
+    {login, logout, signup}
 )(App);

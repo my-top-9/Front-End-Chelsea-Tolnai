@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardTitle, Form, Input, Button } from 'reactstrap';
+import { NavLink } from 'react-router-dom'
 
 const Login = props => {
     return (
@@ -12,7 +13,7 @@ const Login = props => {
                     type="text"
                     name="username"
                     placeholder="Username..."
-                    value={props.username} 
+                    value={props.user.username} 
                     onChange={props.handleLoginInput} 
                 />
 
@@ -20,11 +21,12 @@ const Login = props => {
                     type="password"
                     name="password"
                     placeholder="Password..." 
-                    value={props.password} 
+                    value={props.user.password} 
                     onChange={props.handleLoginInput}
                 />
 
                 <Button type="submit">Login</Button>
+                <NavLink to="/signup">Sign Up</NavLink>
             
             </Form>
         </Card>
