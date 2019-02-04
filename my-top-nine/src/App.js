@@ -47,9 +47,19 @@ class App extends Component {
       <div>
         {this.props.isLoggedIn 
         ? <div>
-          <NavBar logout={this.handleLogout}/>
+          <NavBar 
+            logout={this.handleLogout}
+            username={this.props.user.username}
+          />
           <Route exact path='/' component={HomePage} />
-          <Route path='/user' component={UserPage} />
+          <Route 
+            exact path={`/${this.props.user.username}`}
+            render={ props => (
+            <UserPage
+              {...props}
+              username={this.props.user.username}
+            />
+          )} />
           </div>
         : <Login 
             username={this.state.username}
@@ -67,7 +77,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.isLoggedIn,
-  error: state.error,
+  user: state.user,
 });
 
 export default connect(

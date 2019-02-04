@@ -6,7 +6,7 @@ const NavBar = (props) => {
         <div>
             <div>My Top 9</div>
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/user">MyPage</NavLink>
+            <NavLink to={`/${props.username}`}>MyPage</NavLink>
             <div onClick={props.logout}>LogOut</div>
         </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const UserPage = () => {
+const UserPage = props => {
     return (
         <div>
-            <div>UserPage</div>
+            {props.username}
         </div>
     );
 }
