@@ -19,18 +19,16 @@ class AccountPageView extends Component {
 
     handleAccountSumbit = e => {
         e.preventDefault();
-        const registeredUserNames = this.props.registeredUsers.map(user => user.username);
         if (!this.state.updateUser.username) {
             alert('Please pick a new Username.');
-        } else if (registeredUserNames.includes(this.state.updateUser.username)) {      
-            alert('Username already exists.');
         } else {
             this.props.updateUser(this.props.user, this.state.updateUser)
         }
     }
 
     deleteAccount = () => {
-        this.props.deleteAccount(this.props.user)
+        this.props.deleteAccount(this.props.username);
+        this.props.history.replace('/');
     }
 
     render () {

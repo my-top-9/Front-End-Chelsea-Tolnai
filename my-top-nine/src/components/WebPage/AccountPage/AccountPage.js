@@ -20,7 +20,7 @@ const AccountPage = props => {
                 />
     
                 <Button type="submit">Update Account</Button>
-                <Button type="submit" onClick={props.deleteAccount}>Delete Account</Button>
+                <Button onClick={props.deleteAccount}>Delete Account</Button>
 
             </Form>
         </Card>

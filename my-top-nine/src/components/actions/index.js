@@ -24,7 +24,7 @@ export const signup = user => dispatch => {
     dispatch({ type: REGISTERING_USER });
     axios
         .post("http://localhost:5000/api/register", user)
-        .then(res => dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user }))
+        .then(() => dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user }))
         .catch(err => dispatch({ type: REGISTERING_USER_FAILED, payload: err }));
 };
 
@@ -32,11 +32,11 @@ export const login = user => dispatch => {
     dispatch({ type: LOGGING_IN });
     axios
         .post("http://localhost:5000/api/login", user)
-        .then(res => {
+        .then( () => {
             localStorage.setItem('isLoggedIn', true);
             localStorage.setItem('username', user.username);
-            dispatch({ type: LOGGING_IN_SUCCESSFUL, payload: user })
         })
+        .then(() => dispatch({ type: LOGGING_IN_SUCCESSFUL, payload: user }))
         .catch(err => dispatch({ type: LOGGING_IN_FAILED, payload: err.response.data.message }));
 };    
 
@@ -44,23 +44,30 @@ export const logout = user => dispatch => {
     dispatch({ type: LOGGING_OUT });
     axios
         .get("http://localhost:5000/api/logout")
-        .then(res => {
+        .then(() => {
             localStorage.setItem('isLoggedIn', false);
             localStorage.setItem('username', '');
+            localStorage.clear();
             dispatch({ type: LOGGING_OUT_SUCCESSFUL, payload: user })
         })
         .catch(err => dispatch({ type: LOGGING_OUT_FAILED, payload: err }));
 };
 
-export const deleteAccount = user => dispatch => {
-    console.log(user);
-    // dispatch({ type: DELETING_USER });
-    // axios
-    //     .delete(`http://localhost:5000/api/delete/${user.id}`)
-    //     .then(res => dispatch({ type: DELETING_USER_SUCCESSFUL, payload: {} }))
-    //     .then(() => logout())
-    //     .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
+export const deleteAccount = userDelete => dispatch => {
+    axios
+        .get('http://localhost:5000/api/users')
+        .then((res) => deleteUser(res.data.filter(user => user.username === userDelete)[0].id)(dispatch))
+        .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
 };
+
+export const deleteUser = id => dispatch => {
+    dispatch({ type: DELETING_USER });
+    axios
+        .delete(`http://localhost:5000/api/delete/${id}`)
+        .then(() => dispatch({ type: DELETING_USER_SUCCESSFUL, payload: {} }))
+        .then(() => logout()(dispatch))
+        .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
+}
 
 export const updateUser = (user, updateUser) => dispatch => {
     dispatch({ type: UPDATING_USER });
