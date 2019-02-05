@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, signup } from '../actions';
+import { getUsers, login, signup } from '../actions';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
-
-import { users } from '../../dummy-data'
 
 class LoginView extends Component {
 
@@ -33,22 +31,25 @@ class LoginView extends Component {
 
   handleLoginSumbit = e => {
     e.preventDefault();
-    const usernames = users.map(user => user.username);
-    const currentUser = users.filter(user => user.username === this.state.user.username);
-    console.log(currentUser);
+    this.props.getUsers();
+    const registeredUserNames = this.props.registeredUsers.map(user => user.username);
     if (!this.state.user.username || !this.state.user.password) {
-      alert('Please fill in all fields.')
-    } else if (!usernames.includes(this.state.user.username)) {      
-      alert('Username does not exist. Please Sign Up.')
-    } else if (currentUser[0].password !== this.state.user.password) {      
-      alert('Incorrect Password.')
+        alert('Please fill in all fields.');
+    } else if (!registeredUserNames.includes(this.state.user.username)) {      
+        alert('Username does not exist. Please Sign Up.');
+        this.props.history.push('/signup');
+        this.setState({ 
+            newUser: {
+                username: this.state.user.username,
+            },
+        });
     } else {
     this.props.login(this.state.user)
-    this.setState(
-      { user: {
-        username: '',
-        password: '',
-      }
+    this.setState({ 
+        user: {
+            username: '',
+            password: '',
+        },
     });
     document.getElementById("loginForm").reset();
     }
@@ -63,23 +64,35 @@ class LoginView extends Component {
     });
   }
 
-  handleSingUpSumbit = e => {
+  handleSignUpSumbit = e => {
     e.preventDefault();
+    const registeredUserNames = this.props.registeredUsers.map(user => user.username);
     if (this.state.newUser.password1 !== this.state.newUser.password2) {      
       alert('Passwords do not match!')
     } else if (!this.state.newUser.email || !this.state.newUser.username || !this.state.newUser.password1 || !this.state.newUser.password2) {
       alert('Please fill in all fields.');
+    } else if (registeredUserNames.includes(this.state.newUser.username)) {      
+        alert('Username already exists.');
     } else {
-    this.props.signup(this.state.newUser)
-    this.setState(
-      { newUser: {
-        email: '',
-        username: '',
-        password1: '',
-        password2: '',
-      }
+    const newUser = {
+        "username": this.state.newUser.username,
+        "password": this.state.newUser.password1
+    }
+    this.props.signup(newUser);
+    this.setState({ 
+        user: {
+            username: this.state.newUser.username,
+            password: ''
+        },
+        newUser: {
+            email: '',
+            username: '',
+            password1: '',
+            password2: '',
+        }
     });
     document.getElementById("signupForm").reset();
+    this.props.history.replace('/');
     } 
   }
 
@@ -104,7 +117,7 @@ class LoginView extends Component {
                     {...props}
                     newUser={this.state.newUser}
                     handleSignUpInput= {this.handleSignUpInput}
-                    handleSingUpSumbit = {this.handleSingUpSumbit}
+                    handleSignUpSumbit = {this.handleSignUpSumbit}
                 />
                 )} 
             />
@@ -117,9 +130,10 @@ class LoginView extends Component {
 const mapStateToProps = state => ({
   isLoggedIn: state.isLoggedIn,
   user: state.user,
+  registeredUsers: state.registeredUsers,
 });
 
 export default connect(
     mapStateToProps,
-    {login, signup}
+    {getUsers, login, signup}
 )(LoginView);

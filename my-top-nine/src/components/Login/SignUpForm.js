@@ -5,17 +5,9 @@ import { NavLink } from 'react-router-dom'
 const SignUp = props => {
     return (
         <Card >
-            <Form onSubmit={props.handleSingUpSumbit} id="signupForm">
+            <Form onSubmit={props.handleSignUpSumbit} id="signupForm">
 
                 <CardTitle>My Top Nine</CardTitle>
-
-                <Input 
-                    type="email"
-                    name="email"
-                    placeholder="Email..."
-                    value={props.newUser.email} 
-                    onChange={props.handleSignUpInput} 
-                />
 
                 <Input 
                     type="text"
@@ -25,6 +17,14 @@ const SignUp = props => {
                     onChange={props.handleSignUpInput} 
                 />
 
+                <Input 
+                    type="email"
+                    name="email"
+                    placeholder="Email..."
+                    value={props.newUser.email} 
+                    onChange={props.handleSignUpInput} 
+                />
+                
                 <Input 
                     type="password"
                     name="password1"
