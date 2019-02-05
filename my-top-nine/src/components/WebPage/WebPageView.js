@@ -24,21 +24,21 @@ class WebpageView extends Component {
                 />
                 <Route 
                     exact
-                    path={`/${this.props.user.username}`}
+                    path={`/${this.props.username}`}
                     render={ props => (
                         <UserPageView
                             {...props}
-                            username={this.props.user.username}
+                            username={this.props.username}
                         />
                     )}
                 />
                 <Route 
                     exact
-                    path={`/${this.props.user.username}/account`}
+                    path={`/${this.props.username}/account`}
                     render={ props => (
                         <AccountPageView
                             {...props}
-                            username={this.props.user.username}
+                            username={this.props.username}
                         />
                     )}
                 />
@@ -50,6 +50,7 @@ class WebpageView extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    username: state.username,
 });
   
 export default connect(

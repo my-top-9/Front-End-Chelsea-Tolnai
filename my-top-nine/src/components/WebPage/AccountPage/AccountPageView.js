@@ -39,7 +39,7 @@ class AccountPageView extends Component {
                 {this.props.deletingUser
                 ? <Loader type="Oval" color="black" height="100" width="100" />
                 : <AccountPage 
-                    user={this.props.user}
+                    username={this.props.username}
                     updateUser={this.state.updateUser}
                     handleAccountInput={this.handleAccountInput}
                     handleAccountSumbit={this.handleAccountSumbit}
@@ -53,6 +53,7 @@ class AccountPageView extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    username: state.username,
     deletingUser: state.deletingUser,
 });
   

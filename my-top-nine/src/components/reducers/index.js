@@ -32,6 +32,7 @@ const initialState = {
     updatingUser: false,
 
     user: {},
+    username: localStorage.getItem('username'),
     error: null
 }
 

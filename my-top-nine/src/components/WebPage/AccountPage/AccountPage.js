@@ -6,7 +6,7 @@ const AccountPage = props => {
         <Card >
             <Form onSubmit={props.handleAccountSumbit} id="accountForm">
 
-                <CardTitle>{`${props.user.username}'s Account`}</CardTitle>
+                <CardTitle>{`${props.username}'s Account`}</CardTitle>
 
                 <Label for="username">Change Username</Label>
 

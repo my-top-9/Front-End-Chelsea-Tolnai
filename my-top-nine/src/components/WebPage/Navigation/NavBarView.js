@@ -24,7 +24,7 @@ class NavBarView extends Component {
     render() {
         return (
             <NavBar 
-                username={this.props.user.username}  
+                username={this.props.username}  
                 toggleDrop={this.handleToggleDrop}  
                 dropdownOpen={this.state.dropdownOpen}            
                 logout={this.handleLogout}
@@ -36,6 +36,7 @@ class NavBarView extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    username: state.username,
 });
   
 export default connect(

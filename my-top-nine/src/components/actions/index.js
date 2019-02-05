@@ -34,6 +34,7 @@ export const login = user => dispatch => {
         .post("http://localhost:5000/api/login", user)
         .then(res => {
             localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('username', user.username);
             dispatch({ type: LOGGING_IN_SUCCESSFUL, payload: user })
         })
         .catch(err => dispatch({ type: LOGGING_IN_FAILED, payload: err.response.data.message }));
@@ -45,18 +46,20 @@ export const logout = user => dispatch => {
         .get("http://localhost:5000/api/logout")
         .then(res => {
             localStorage.setItem('isLoggedIn', false);
+            localStorage.setItem('username', '');
             dispatch({ type: LOGGING_OUT_SUCCESSFUL, payload: user })
         })
         .catch(err => dispatch({ type: LOGGING_OUT_FAILED, payload: err }));
 };
 
 export const deleteAccount = user => dispatch => {
-    dispatch({ type: DELETING_USER });
-    axios
-        .delete(`http://localhost:5000/api/delete/${user.id}`)
-        .then(res => dispatch({ type: DELETING_USER_SUCCESSFUL, payload: {} }))
-        .then(() => logout())
-        .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
+    console.log(user);
+    // dispatch({ type: DELETING_USER });
+    // axios
+    //     .delete(`http://localhost:5000/api/delete/${user.id}`)
+    //     .then(res => dispatch({ type: DELETING_USER_SUCCESSFUL, payload: {} }))
+    //     .then(() => logout())
+    //     .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
 };
 
 export const updateUser = (user, updateUser) => dispatch => {
