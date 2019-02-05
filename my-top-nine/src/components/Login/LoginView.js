@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsers, login, signup } from '../actions';
+import Loader from 'react-loader-spinner';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 
@@ -41,6 +42,9 @@ class LoginView extends Component {
         this.setState({ 
             newUser: {
                 username: this.state.user.username,
+                email: '',
+                password1: '',
+                password2: '',
             },
         });
     } else {
@@ -99,28 +103,33 @@ class LoginView extends Component {
   render() {
     return (
         <div>
-            <Route 
-                exact path='/' 
-                render={ props => (
-                <LoginForm
-                    {...props}
-                    user={this.state.user}
-                    handleLoginInput= {this.handleLoginInput}
-                    handleLoginSumbit = {this.handleLoginSumbit}
+            {(this.props.gettingUsers || this.props.registeringUser)
+            ? <Loader type="Oval" color="black" height="100" width="100" />
+            : <div>
+                <Route 
+                    exact path='/' 
+                    render={ props => (
+                    <LoginForm
+                        {...props}
+                        user={this.state.user}
+                        handleLoginInput= {this.handleLoginInput}
+                        handleLoginSumbit = {this.handleLoginSumbit}
+                    />
+                    )} 
                 />
-                )} 
-            />
-            <Route 
-                exact path='/signup' 
-                render={ props => (
-                <SignUpForm
-                    {...props}
-                    newUser={this.state.newUser}
-                    handleSignUpInput= {this.handleSignUpInput}
-                    handleSignUpSumbit = {this.handleSignUpSumbit}
+                <Route 
+                    exact path='/signup' 
+                    render={ props => (
+                    <SignUpForm
+                        {...props}
+                        newUser={this.state.newUser}
+                        handleSignUpInput= {this.handleSignUpInput}
+                        handleSignUpSumbit = {this.handleSignUpSumbit}
+                    />
+                    )} 
                 />
-                )} 
-            />
+              </div>
+            }
         </div>
       
     );
@@ -131,6 +140,8 @@ const mapStateToProps = state => ({
   isLoggedIn: state.isLoggedIn,
   user: state.user,
   registeredUsers: state.registeredUsers,
+  gettingUsers: state.gettingUsers,
+  registeringUser: state.registeringUser,
 });
 
 export default connect(
