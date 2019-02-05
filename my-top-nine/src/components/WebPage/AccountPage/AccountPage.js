@@ -4,7 +4,7 @@ import { Card, CardTitle, Form, Label, Input, Button } from 'reactstrap';
 const AccountPage = props => {
     return (
         <Card >
-            <Form onSubmit={props.handleAccountSumbit} id="accountForm">
+            <Form id="accountForm">
 
                 <CardTitle>{`${props.username}'s Account`}</CardTitle>
 
@@ -19,7 +19,7 @@ const AccountPage = props => {
                     onChange={props.handleAccountInput} 
                 />
     
-                <Button type="submit">Update Account</Button>
+                <Button onClick={props.updateAccount}>Update Account</Button>
                 <Button onClick={props.deleteAccount}>Delete Account</Button>
 
             </Form>

@@ -69,10 +69,18 @@ export const deleteUser = id => dispatch => {
         .catch(err => dispatch({ type: DELETING_USER_FAILED, payload: err }));
 }
 
-export const updateUser = (user, updateUser) => dispatch => {
+export const updateAccount = (userUpdate, newUserUpdate) => dispatch => {
     dispatch({ type: UPDATING_USER });
     axios
-        .put(`http://localhost:5000/api/update/${user.id}`, {'username': `${updateUser.username}`} )
+        .get('http://localhost:5000/api/users')
+        .then((res) => updateUser(res.data.filter(user => user.username === userUpdate)[0].id, {'username': `${newUserUpdate.username}`})(dispatch))
+        .catch(err => dispatch({ type: UPDATING_USER_FAILED, payload: err }));
+};
+
+export const updateUser = (id, updateUser) => dispatch => {
+    console.log("3:", id, updateUser)
+    axios
+        .put(`http://localhost:5000/api/update/${id}`, updateUser)
         .then(res => dispatch({ type: UPDATING_USER_SUCCESSFUL, payload: updateUser.username }))
         .catch(err => dispatch({ type: UPDATING_USER_FAILED, payload: err }));
 };

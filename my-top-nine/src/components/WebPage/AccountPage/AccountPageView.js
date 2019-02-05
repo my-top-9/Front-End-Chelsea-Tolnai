@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 
-import { updateUser, deleteAccount } from '../../actions';
+import { updateAccount, deleteAccount } from '../../actions';
 
 import AccountPage from './AccountPage';
 
@@ -17,12 +17,12 @@ class AccountPageView extends Component {
         this.setState({ updateUser: {[e.target.name]: e.target.value}});
     }
 
-    handleAccountSumbit = e => {
+    updateAccount = e => {
         e.preventDefault();
         if (!this.state.updateUser.username) {
             alert('Please pick a new Username.');
         } else {
-            this.props.updateUser(this.props.user, this.state.updateUser)
+            this.props.updateAccount(this.props.username, this.state.updateUser)
         }
     }
 
@@ -40,7 +40,7 @@ class AccountPageView extends Component {
                     username={this.props.username}
                     updateUser={this.state.updateUser}
                     handleAccountInput={this.handleAccountInput}
-                    handleAccountSumbit={this.handleAccountSumbit}
+                    updateAccount={this.updateAccount}
                     deleteAccount={this.deleteAccount}
                   />
                 }
@@ -57,5 +57,5 @@ const mapStateToProps = state => ({
   
 export default connect(
     mapStateToProps,
-    { updateUser, deleteAccount }
+    { updateAccount, deleteAccount }
 )(AccountPageView);

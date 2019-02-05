@@ -113,6 +113,7 @@ function reducer (state = initialState , action) {
             loggingInUser: false,
             isLoggedIn: true,
             user: action.payload,
+            username: localStorage.getItem('username'),
         }
     case LOGGING_IN_FAILED: 
         return {
