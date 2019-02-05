@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUsers, login, signup } from '../actions';
 import Loader from 'react-loader-spinner';
+
+import { getUsers, login, signup } from '../actions';
+
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 

@@ -10,12 +10,16 @@ import {
 } from '../actions';
 
 const initialState = {
-  isLoggedIn: false,
-  gettingUsers: false,
-  registeredUsers: [],
-  registeringUser: false,
-  user: {},
-  error: null
+    // ***** Change back to false ***** //
+    isLoggedIn: true,
+
+    gettingUsers: false,
+    registeredUsers: [],
+    registeringUser: false,
+
+    // ***** Change back to {} ***** //
+    user: {"username": "CATolnai"},
+    error: null
 }
 
 function reducer (state = initialState , action) {
