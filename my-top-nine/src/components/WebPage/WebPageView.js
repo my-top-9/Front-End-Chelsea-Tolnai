@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import NavBarView from './Navigation/NavBarView';
 import HomePage from './HomePage/HomePage';
-import UserPage from './UserPage/UserPage';
+import UserPageView from './UserPage/UserPageView';
 import AccountPageView from './AccountPage/AccountPageView';
 
 class WebpageView extends Component {
@@ -26,7 +26,7 @@ class WebpageView extends Component {
                     exact
                     path={`/${this.props.user.username}`}
                     render={ props => (
-                        <UserPage
+                        <UserPageView
                             {...props}
                             username={this.props.user.username}
                         />

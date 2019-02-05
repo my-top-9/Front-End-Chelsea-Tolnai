@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserPage = props => {
+const UserPageView = props => {
     return (
         <div>
             {props.username}
@@ -8,4 +8,4 @@ const UserPage = props => {
     );
 }
 
-export default UserPage;
+export default UserPageView;
