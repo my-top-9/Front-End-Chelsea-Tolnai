@@ -7,18 +7,22 @@ import {
     REGISTERING_USER,
     REGISTERING_USER_SUCCESSFUL,
     REGISTERING_USER_FAILED,
+    DELETING_USER,
+    DELETING_USER_SUCCESSFUL,
+    DELETING_USER_FAILED,
+    UPDATING_USER,
+    UPDATING_USER_SUCCESSFUL,
+    UPDATING_USER_FAILED,
 } from '../actions';
 
 const initialState = {
-    // ***** Change back to false ***** //
-    isLoggedIn: true,
-
+    isLoggedIn: false,
     gettingUsers: false,
     registeredUsers: [],
     registeringUser: false,
-
-    // ***** Change back to {} ***** //
-    user: {"username": "CATolnai"},
+    deletingUser: false,
+    updatingUser: false,
+    user: {},
     error: null
 }
 
@@ -63,6 +67,47 @@ function reducer (state = initialState , action) {
         return {
             ...state,
             registeringUser: false,
+            error: action.payload,
+        }
+
+    case DELETING_USER:
+        return {
+            ...state,
+            deletingUser: true,
+            error: null,
+        }
+    case DELETING_USER_SUCCESSFUL:
+        return {
+            ...state,
+            user: action.payload,
+            deletingUser: false,
+            error: null,
+        }
+
+    case DELETING_USER_FAILED:
+        return {
+            ...state,
+            deletingUser: false,
+            error: action.payload,
+        }
+
+    case UPDATING_USER:
+        return {
+            ...state,
+            updatingUser: true,
+            error: null,
+        }
+    case UPDATING_USER_SUCCESSFUL:
+        return {
+            ...state,
+            user: action.payload,
+            updatingUser: false,
+            error: null,
+        }
+    case UPDATING_USER_FAILED:
+        return {
+            ...state,
+            updatingUser: false,
             error: action.payload,
         }
 

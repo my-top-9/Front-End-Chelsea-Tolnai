@@ -2,25 +2,17 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logout } from '../actions';
-
-import NavBar from './Navigation/NavBar';
+import NavBarView from './Navigation/NavBarView';
 import HomePage from './HomePage/HomePage';
 import UserPage from './UserPage/UserPage';
+import AccountPageView from './AccountPage/AccountPageView';
 
 class WebpageView extends Component {
-
-    handleLogout = () => {
-        this.props.logout();
-    }
 
     render() {
         return (
             <div>
-                <NavBar 
-                    logout={this.handleLogout}
-                    username={this.props.user.username}
-                />
+                <NavBarView />
                 <Route 
                     exact 
                     path='/' 
@@ -40,6 +32,16 @@ class WebpageView extends Component {
                         />
                     )}
                 />
+                <Route 
+                    exact
+                    path={`/${this.props.user.username}/account`}
+                    render={ props => (
+                        <AccountPageView
+                            {...props}
+                            username={this.props.user.username}
+                        />
+                    )}
+                />
             </div>
         
         );
@@ -52,5 +54,5 @@ const mapStateToProps = state => ({
   
 export default connect(
     mapStateToProps,
-    { logout }
+    {  }
 )(WebpageView);

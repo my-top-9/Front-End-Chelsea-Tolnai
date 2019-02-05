@@ -23,6 +23,10 @@ class LoginView extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.props.getUsers();
+  }
+
   handleLoginInput = e => {
     this.setState({
       user: {
@@ -34,7 +38,6 @@ class LoginView extends Component {
 
   handleLoginSumbit = e => {
     e.preventDefault();
-    this.props.getUsers();
     const registeredUserNames = this.props.registeredUsers.map(user => user.username);
     if (!this.state.user.username || !this.state.user.password) {
         alert('Please fill in all fields.');
