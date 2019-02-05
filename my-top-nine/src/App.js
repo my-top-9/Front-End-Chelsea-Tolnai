@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from './components/actions';
 
 import WebPageView from './components/WebPage/WebPageView';
 import LoginView from './components/LoginPage/LoginView';
@@ -29,5 +28,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { }
 )(App);

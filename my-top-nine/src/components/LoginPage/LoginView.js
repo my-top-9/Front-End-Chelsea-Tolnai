@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 
-import { getUsers, login, signup } from '../actions';
+import { login, signup } from '../actions';
 
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
@@ -23,10 +23,6 @@ class LoginView extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.props.getUsers();
-  }
-
   handleLoginInput = e => {
     this.setState({
       user: {
@@ -38,20 +34,8 @@ class LoginView extends Component {
 
   handleLoginSumbit = e => {
     e.preventDefault();
-    const registeredUserNames = this.props.registeredUsers.map(user => user.username);
     if (!this.state.user.username || !this.state.user.password) {
         alert('Please fill in all fields.');
-    } else if (!registeredUserNames.includes(this.state.user.username)) {      
-        alert('Username does not exist. Please Sign Up.');
-        this.props.history.push('/signup');
-        this.setState({ 
-            newUser: {
-                username: this.state.user.username,
-                email: '',
-                password1: '',
-                password2: '',
-            },
-        });
     } else {
     this.props.login(this.state.user)
     this.setState({ 
@@ -75,17 +59,14 @@ class LoginView extends Component {
 
   handleSignUpSumbit = e => {
     e.preventDefault();
-    const registeredUserNames = this.props.registeredUsers.map(user => user.username);
     if (this.state.newUser.password1 !== this.state.newUser.password2) {      
       alert('Passwords do not match!')
     } else if (!this.state.newUser.email || !this.state.newUser.username || !this.state.newUser.password1 || !this.state.newUser.password2) {
       alert('Please fill in all fields.');
-    } else if (registeredUserNames.includes(this.state.newUser.username)) {      
-        alert('Username already exists.');
     } else {
     const newUser = {
         "username": this.state.newUser.username,
-        "password": this.state.newUser.password1
+        "password": this.state.newUser.password2
     }
     this.props.signup(newUser);
     this.setState({ 
@@ -108,7 +89,7 @@ class LoginView extends Component {
   render() {
     return (
         <div>
-            {(this.props.gettingUsers || this.props.registeringUser)
+            {(this.props.loggingInUser || this.props.registeringUser)
             ? <Loader type="Oval" color="black" height="100" width="100" />
             : <div>
                 <Route 
@@ -133,6 +114,7 @@ class LoginView extends Component {
                     />
                     )} 
                 />
+                {this.props.error && <div>{this.props.error} Or try Signing Up!</div>}
               </div>
             }
         </div>
@@ -142,14 +124,13 @@ class LoginView extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.isLoggedIn,
   user: state.user,
-  registeredUsers: state.registeredUsers,
-  gettingUsers: state.gettingUsers,
+  loggingInUser: state.loggingInUser,
   registeringUser: state.registeringUser,
+  error: state.error,
 });
 
 export default connect(
     mapStateToProps,
-    {getUsers, login, signup}
+    {login, signup}
 )(LoginView);
