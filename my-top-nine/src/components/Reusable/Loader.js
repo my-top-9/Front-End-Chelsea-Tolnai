@@ -1,13 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 
-import styled from 'styled-components';
-
-const LoaderWrapper = styled.div`
-    width: 100px;
-    height: 100px;
-    margin: 100px auto;
-`
+import { LoaderWrapper } from './StyledComponents'
 
 const LoaderGrid = () => {
     return (

@@ -20,12 +20,15 @@ export const UPDATING_USER = "UPDATING_USER";
 export const UPDATING_USER_SUCCESSFUL = "UPDATING_USER_SUCCESSFUL";
 export const UPDATING_USER_FAILED = "UPDATING_USER_FAILED";
 
-export const signup = user => dispatch => {
+export const signup = (user, history) => dispatch => {
     dispatch({ type: REGISTERING_USER });
     axios
         .post("http://localhost:5000/api/register", user)
-        .then(() => dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user }))
-        .catch(err => dispatch({ type: REGISTERING_USER_FAILED, payload: err }));
+        .then(() => {
+            dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user });
+            history.replace('/');
+        })
+        .catch(err => dispatch({ type: REGISTERING_USER_FAILED, payload: 'An error has occurred. Username may already be taken. Trying signing up with another unique Username.' }));
 };
 
 export const login = user => dispatch => {

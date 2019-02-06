@@ -33,6 +33,9 @@ const initialState = {
 
     user: {},
     username: localStorage.getItem('username'),
+
+    loginError: null,
+    signupError: null,
     error: null
 }
 
@@ -43,20 +46,23 @@ function reducer (state = initialState , action) {
         return {
             ...state,
             registeringUser: true,
-            error: null,
+            loginError: null,
+            signupError: null,
         }
     case REGISTERING_USER_SUCCESSFUL:
         return {
             ...state,
             user: action.payload,
             registeringUser: false,
-            error: null,
+            loginError: null,
+            signupError: null,
         }
     case REGISTERING_USER_FAILED:
         return {
             ...state,
             registeringUser: false,
-            error: action.payload,
+            loginError: null,
+            signupError: action.payload,
         }
 
     case DELETING_USER:
@@ -105,7 +111,8 @@ function reducer (state = initialState , action) {
             ...state,
             loggingInUser: true,
             isLoggedIn: false,
-            error: null,
+            loginError: null,
+            signupError: null,
         }
     case LOGGING_IN_SUCCESSFUL: 
         return {
@@ -114,13 +121,15 @@ function reducer (state = initialState , action) {
             isLoggedIn: true,
             user: action.payload,
             username: localStorage.getItem('username'),
+            signupError: null,
         }
     case LOGGING_IN_FAILED: 
         return {
             ...state,
             loggingInUser: false,
             isLoggedIn: false,
-            error: action.payload,
+            loginError: action.payload,
+            signupError: null,
         }
 
     case LOGGING_OUT: 
