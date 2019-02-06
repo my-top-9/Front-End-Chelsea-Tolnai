@@ -5,8 +5,10 @@ import Loader from 'react-loader-spinner';
 
 import { login, signup } from '../actions';
 
+import LoginHeader from './LoginHeader';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
+import LoginError from './LoginError';
 
 class LoginView extends Component {
 
@@ -92,6 +94,7 @@ class LoginView extends Component {
             {(this.props.loggingInUser || this.props.registeringUser)
             ? <Loader type="Oval" color="black" height="100" width="100" />
             : <div>
+                <LoginHeader />
                 <Route 
                     exact path='/' 
                     render={ props => (
@@ -114,7 +117,17 @@ class LoginView extends Component {
                     />
                     )} 
                 />
-                {this.props.error && <div>{this.props.error} Or try Signing Up!</div>}
+                {this.props.error && 
+                    <Route 
+                        exact path='/'
+                        render={ props => (
+                            <LoginError 
+                                {...props}
+                                error={this.props.error}
+                            />
+                        )}
+                    />
+                }
               </div>
             }
         </div>

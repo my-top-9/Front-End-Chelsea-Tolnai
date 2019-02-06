@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import WebPageView from './components/WebPage/WebPageView';
 import LoginView from './components/LoginPage/LoginView';
 
-import './App.css';
-
 class App extends Component {
 
   render() {
