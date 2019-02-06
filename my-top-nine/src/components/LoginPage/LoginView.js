@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner';
 
 import { login, signup } from '../actions';
 
@@ -9,6 +8,7 @@ import LoginHeader from './LoginHeader';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import LoginError from './LoginError';
+import LoaderGrid from '../Reusable/Loader'
 
 class LoginView extends Component {
 
@@ -92,7 +92,7 @@ class LoginView extends Component {
     return (
         <div>
             {(this.props.loggingInUser || this.props.registeringUser)
-            ? <Loader type="Oval" color="black" height="100" width="100" />
+            ? <LoaderGrid />
             : <div>
                 <LoginHeader />
                 <Route 

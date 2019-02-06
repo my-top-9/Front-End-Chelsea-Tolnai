@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner';
 
 import { updateAccount, deleteAccount } from '../../actions';
 
 import AccountPage from './AccountPage';
+import LoaderGrid from '../../Reusable/Loader';
 
 class AccountPageView extends Component {
     state = {
@@ -51,7 +51,7 @@ class AccountPageView extends Component {
         return (
             <div>
                 {this.props.deletingUser || this.props.updatingUser
-                ? <Loader type="Oval" color="black" height="100" width="100" />
+                ? <LoaderGrid />
                 : <AccountPage 
                     username={this.props.username}
                     updateUser={this.state.updateUser}
