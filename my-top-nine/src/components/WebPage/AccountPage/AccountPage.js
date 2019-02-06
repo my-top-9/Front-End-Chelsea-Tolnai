@@ -1,5 +1,17 @@
 import React from 'react';
-import { Card, CardTitle, Form, Label, Input, Button } from 'reactstrap';
+import { 
+    Card, 
+    CardTitle, 
+    CardText, 
+    Form, 
+    Label, 
+    Input, 
+    Button, 
+    Modal, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter
+} from 'reactstrap';
 
 const AccountPage = props => {
     return (
@@ -9,18 +21,40 @@ const AccountPage = props => {
                 <CardTitle>{`${props.username}'s Account`}</CardTitle>
 
                 <Label for="username">Change Username</Label>
-
                 <Input 
                     type="text"
                     name="username"
                     id="username"
-                    placeholder="Change Username..."
+                    placeholder="Enter Username..."
                     value={props.updateUser.username} 
                     onChange={props.handleAccountInput} 
                 />
+                
+                <Label for="password">Change Password</Label>
+                <Input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter Password..."
+                    value={props.updateUser.password} 
+                    onChange={props.handleAccountInput} 
+                />
+
+                <CardText>Re-Enter current Username/Password if you do not wish to edit that information.</CardText>
     
-                <Button onClick={props.updateAccount}>Update Account</Button>
-                <Button onClick={props.deleteAccount}>Delete Account</Button>
+                <Button onClick={props.updateAccount} color="primary">Update Account</Button>
+
+                <Button color="danger" onClick={props.toggleDeleteModal}>Delete Account</Button>
+                <Modal toggle={props.toggleDeleteModal} isOpen={props.deleteModal}>
+                    <ModalHeader toggle={props.toggleDeleteModal}>Delete Account</ModalHeader>
+                    <ModalBody>
+                        Are you sure you want to delete this account? This action cannot be undone and all account information will be lost.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={props.deleteAccount}>Delete Account</Button>{' '}
+                        <Button color="secondary" onClick={props.toggleDeleteModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
 
             </Form>
         </Card>

@@ -10,31 +10,47 @@ class AccountPageView extends Component {
     state = {
         updateUser: {
             username: '',
+            password: ''
         },
+        deleteModal: false
     }
 
     handleAccountInput = e => {
-        this.setState({ updateUser: {[e.target.name]: e.target.value}});
+        this.setState({ 
+            updateUser: {
+                ...this.state.updateUser,
+                [e.target.name]: e.target.value
+            }
+        });
     }
 
     updateAccount = e => {
         e.preventDefault();
-        if (!this.state.updateUser.username) {
-            alert('Please pick a new Username.');
+        if (!this.state.updateUser.username || !this.state.updateUser.password) {
+            alert('Please pick a new Username and enter password.');
         } else {
-            this.props.updateAccount(this.props.username, this.state.updateUser)
+            this.props.updateAccount(this.props.username, this.state.updateUser);
+            this.props.history.replace('/');
         }
     }
 
-    deleteAccount = () => {
+    deleteAccount = e => {
+        e.preventDefault();
         this.props.deleteAccount(this.props.username);
         this.props.history.replace('/');
+    }
+
+    toggleDeleteModal = e => {
+        e.preventDefault();
+        this.setState(prevState => ({
+            deleteModal: !prevState.deleteModal
+        }))
     }
 
     render () {
         return (
             <div>
-                {this.props.deletingUser
+                {this.props.deletingUser || this.props.updatingUser
                 ? <Loader type="Oval" color="black" height="100" width="100" />
                 : <AccountPage 
                     username={this.props.username}
@@ -42,6 +58,8 @@ class AccountPageView extends Component {
                     handleAccountInput={this.handleAccountInput}
                     updateAccount={this.updateAccount}
                     deleteAccount={this.deleteAccount}
+                    deleteModal={this.state.deleteModal}
+                    toggleDeleteModal={this.toggleDeleteModal}
                   />
                 }
             </div>
@@ -53,6 +71,7 @@ const mapStateToProps = state => ({
     user: state.user,
     username: state.username,
     deletingUser: state.deletingUser,
+    updatingUser: state.updatingUser,
 });
   
 export default connect(
