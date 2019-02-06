@@ -221,9 +221,17 @@ export const CardsContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    @media (max-width: 600px) {
+        margin: 0 auto;
+    }
 `
 export const CardWrapper = styled.div`
     flex: 1 0 26%;
+    @media (max-width: 600px) {
+        flex: 0 0 0;
+        margin: 2%;
+    }
 `
 export const CardFront = styled.div`
     width: 120px;
