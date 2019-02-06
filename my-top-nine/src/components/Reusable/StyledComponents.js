@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom'
 
 
-// === ERROR / LOADING == ///
+// === ERROR & LOADING == ///
 
 export const LoaderWrapper = styled.div`
     width: 100px;
@@ -103,6 +103,7 @@ export const FormHeader = styled.h2`
     font-size: 30px;
     background-color: #EDEDED;
     margin-bottom: 20px;
+    padding: 2%;
 `
 export const Input = styled.input`
     width: 100%;
@@ -142,3 +143,54 @@ export const FormNavLink = styled(NavLink)`
 
 // === BUTTONS === ///
 
+export const DangerButton = styled.button`
+    width: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #EDEDED;
+    background-color: #FC3768;
+    margin: 5px auto 10px;
+    border: 1px solid #EDEDED;
+    padding: 2%;
+    display: block;
+    :hover {
+        cursor: pointer;
+        color: #FC3768;
+        background-color: #EDEDED;
+        border: 1px solid #FC3768;
+    }
+`
+export const CancelButton = styled.button`
+    width: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #EDEDED;
+    margin: 5px auto 10px;
+    border: 1px solid #EDEDED;
+    padding: 2%;
+    display: block;
+    :hover {
+        cursor: pointer;
+        color: #FC3768;
+        background-color: #EDEDED;
+        border: 1px solid #FC3768;
+    }
+`
+
+// === PAGES === //
+export const PageContainer = styled.div`
+    margin: 0 auto;
+    padding: 20px 5%;
+`
+
+// === HEADERS & TEXT === ///
+
+export const SubPageHeader = styled.h3`
+    background-color: #301077;
+    color: #EDEDED;
+    font-family: 'Krub', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+`
