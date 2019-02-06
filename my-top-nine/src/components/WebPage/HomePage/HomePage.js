@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { PageContainer, MainPageHeader } from '../../Reusable/StyledComponents'
+
 const HomePage = () => {
     return (
-        <div>
-            HomePage
-        </div>
+        <PageContainer>
+            <MainPageHeader>Find <br></br>interests...</MainPageHeader>
+        </PageContainer>
     );
 }
 

@@ -8,8 +8,8 @@ const Card = props => {
     return (
         <CardWrapper>
             <ReactCardFlip isFlipped={props.isFlipped}>
-                <CardFront key="front" onClick={props.handleCardFlip}>Front</CardFront>
-                <CardBack key="back" onClick={props.handleCardFlip}>Back</CardBack>
+                <CardFront key="front" onClick={props.handleCardFlip}>Front: {props.content}</CardFront>
+                <CardBack key="back" onClick={props.handleCardFlip}>Back: {props.content}</CardBack>
             </ReactCardFlip>
         </CardWrapper>
     );

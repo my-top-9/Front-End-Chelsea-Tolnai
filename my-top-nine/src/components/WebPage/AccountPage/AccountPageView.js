@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { updateAccount, deleteAccount } from '../../actions';
 
 import AccountPage from './AccountPage';
-import LoaderGrid from '../../Reusable/Loader';
 
 class AccountPageView extends Component {
     state = {
@@ -29,14 +28,14 @@ class AccountPageView extends Component {
         if (!this.state.updateUser.username || !this.state.updateUser.password) {
             alert('Please pick a new Username and enter password.');
         } else {
-            this.props.updateAccount(this.props.username, this.state.updateUser);
+            this.props.updateAccount(this.props.username, this.state.updateUser, this.props.history);
             this.props.history.replace('/');
         }
     }
 
     deleteAccount = e => {
         e.preventDefault();
-        this.props.deleteAccount(this.props.username);
+        this.props.deleteAccount(this.props.username, this.props.history);
         this.props.history.replace('/');
     }
 
@@ -49,10 +48,7 @@ class AccountPageView extends Component {
 
     render () {
         return (
-            <div>
-                {this.props.deletingUser || this.props.updatingUser
-                ? <LoaderGrid />
-                : <AccountPage 
+            <AccountPage 
                     username={this.props.username}
                     updateUser={this.state.updateUser}
                     handleAccountInput={this.handleAccountInput}
@@ -60,9 +56,7 @@ class AccountPageView extends Component {
                     deleteAccount={this.deleteAccount}
                     deleteModal={this.state.deleteModal}
                     toggleDeleteModal={this.toggleDeleteModal}
-                  />
-                }
-            </div>
+            />
         );
     }
 }
@@ -70,8 +64,6 @@ class AccountPageView extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     username: state.username,
-    deletingUser: state.deletingUser,
-    updatingUser: state.updatingUser,
 });
   
 export default connect(

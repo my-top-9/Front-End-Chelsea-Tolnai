@@ -15,7 +15,11 @@ class CardContainer extends Component {
 
     render() {
         return (
-            <Card isFlipped={this.state.isFlipped} handleCardFlip={this.handleCardFlip}/>
+            <Card 
+                isFlipped={this.state.isFlipped} 
+                handleCardFlip={this.handleCardFlip}
+                content={this.props.content}
+            />
         )
     }
 }

@@ -200,19 +200,21 @@ export const SubPageHeader = styled.h3`
     background-color: ${purple};
     color: ${white};
     font-family: ${textFont};
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     padding: 20px;
     text-align: center;
+    @media (max-width: 600px) {
+        font-size: 30px;
+    }
 `
 export const MainPageHeader = styled.h2`
-    color: ${black};
-    font-size: 65px;
+    color: ${white};
+    background-color: ${purple};
+    font-size: 55px;
     font-weight: 400px;
-    line-height: 65px;
-    @media (max-width: 600px) {
-        font-size: 55px;
-    }
+    line-height: 55px;
+    padding: 2%;
 `
 
 // === CARDS === //
@@ -242,6 +244,7 @@ export const CardFront = styled.div`
     border-radius: 20px;
     margin: 8% 2%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 `
 export const CardBack = styled.div`
     width: 120px;
@@ -252,6 +255,7 @@ export const CardBack = styled.div`
     border-radius: 20px;
     margin: 8% 2%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 `
 
 // === MEDIA TOGGLES === //

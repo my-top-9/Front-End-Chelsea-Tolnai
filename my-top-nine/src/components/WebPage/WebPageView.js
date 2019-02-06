@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import NavBarView from './Navigation/NavBarView';
-import HomePage from './HomePage/HomePage';
+import HomePageView from './HomePage/HomePageView';
 import UserPageView from './UserPage/UserPageView';
 import AccountPageView from './AccountPage/AccountPageView';
 
@@ -17,7 +17,7 @@ class WebpageView extends Component {
                     exact 
                     path='/' 
                     render={ props => (
-                        <HomePage
+                        <HomePageView
                             {...props}
                         />
                     )}
