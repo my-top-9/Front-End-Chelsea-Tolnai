@@ -28,7 +28,9 @@ export const signup = (user, history) => dispatch => {
             dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user });
             history.replace('/');
         })
-        .catch(err => dispatch({ type: REGISTERING_USER_FAILED, payload: 'An error has occurred. Username may already be taken. Trying signing up with another unique Username.' }));
+        .catch(err => dispatch({ type: REGISTERING_USER_FAILED, 
+            payload: err.response.data.message
+        }));
 };
 
 export const login = user => dispatch => {

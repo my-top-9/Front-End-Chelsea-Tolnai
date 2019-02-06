@@ -93,6 +93,18 @@ class LoginView extends Component {
             {(this.props.loggingInUser || this.props.registeringUser)
             ? <LoaderGrid />
             : <div>
+                {this.props.loginError && 
+                    <Route 
+                        exact path='/'
+                        render={ props => (
+                            <Error 
+                                {...props}
+                                error={this.props.loginError}
+                                message={`Or try Signing Up!`}
+                            />
+                        )}
+                    />
+                }
                 <Route 
                     exact path='/' 
                     render={ props => (
@@ -104,14 +116,14 @@ class LoginView extends Component {
                     />
                     )} 
                 />
-                {this.props.loginError && 
+
+                {this.props.signupError && 
                     <Route 
-                        exact path='/'
+                        exact path='/signup'
                         render={ props => (
                             <Error 
                                 {...props}
-                                error={this.props.loginError}
-                                message={`Or try Signing Up!`}
+                                error={this.props.signupError}
                             />
                         )}
                     />
@@ -127,17 +139,6 @@ class LoginView extends Component {
                     />
                     )} 
                 />
-                {this.props.signupError && 
-                    <Route 
-                        exact path='/signup'
-                        render={ props => (
-                            <Error 
-                                {...props}
-                                error={this.props.signupError}
-                            />
-                        )}
-                    />
-                }
               </div>
             }
         </div>

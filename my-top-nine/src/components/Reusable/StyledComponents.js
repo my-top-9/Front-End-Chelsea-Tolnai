@@ -17,7 +17,7 @@ export const ErrorWrapper = styled.div`
     font-family: 'Krub', sans-serif;
     font-size: 20px;
     font-weight: bold;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
 `
 
@@ -29,8 +29,22 @@ export const NavContainer = styled.nav`
     padding: 0 20px;
     border-bottom: 5px solid #FC3768;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 600px) {
+        height: auto;
+        flex-direction: column;
+    }
+`
+export const NavLinksWrapper = styled.div`
+    display: flex;
+    flex-direction: row:
+    justify-content: flex-end;
+    align-items: center;
+    @media (max-width: 600px) {
+        margin-bottom: 10px;
+    }
 `
 export const NavAnchor = styled.a`
     font-family: 'Major Mono Display', monospace;
@@ -42,18 +56,32 @@ export const NavAnchor = styled.a`
         color: #EDEDED;
     }
 `
-export const StyledNavLink = styled(NavLink)`
+export const NavLinkButton = styled(NavLink)`
     font-family: 'Krub', sans-serif;
     font-weight: bold;
     color: #FC3768;
     background-color: #EDEDED;
     border: 2px solid #FC3768;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px;
     :hover {
         color: #FC3768;
         border: 2px solid #EDEDED;
         background-color: #262626;
+    }
+`
+export const NavLinkStyled = styled(NavLink)`
+    font-family: 'Krub', sans-serif;
+    color: #EDEDED;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 20px;
+    :hover {
+        color: #4397A4;
+        text-decoration: none;
+    }
+    @media (max-width: 600px) {
+        margin: 0 5px;
     }
 `
 
