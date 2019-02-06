@@ -35,6 +35,7 @@ export const NavContainer = styled.nav`
     @media (max-width: 600px) {
         height: auto;
         flex-direction: column;
+        padding-bottom: 10px;
     }
 `
 export const NavLinksWrapper = styled.div`
@@ -43,7 +44,8 @@ export const NavLinksWrapper = styled.div`
     justify-content: flex-end;
     align-items: center;
     @media (max-width: 600px) {
-        margin-bottom: 10px;
+        width: 100%;
+        justify-content: space-evenly;
     }
 `
 export const NavAnchor = styled.a`
@@ -81,7 +83,7 @@ export const NavLinkStyled = styled(NavLink)`
         text-decoration: none;
     }
     @media (max-width: 600px) {
-        margin: 0 5px;
+        margin: 0;
     }
 `
 
@@ -193,4 +195,16 @@ export const SubPageHeader = styled.h3`
     font-weight: bold;
     padding: 20px;
     text-align: center;
+`
+
+// === MEDIA TOGGLES === //
+export const MediaToggleHide = styled.div`
+    @media (max-width: 600px) {
+        display: none;
+    }
+`
+export const MediaToggleShow = styled.div`
+    @media (min-width: 600px) {
+        display: none;
+    }
 `
