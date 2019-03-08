@@ -24,8 +24,8 @@ export const signup = (user, history) => dispatch => {
     dispatch({ type: REGISTERING_USER });
     axios
         .post("https://my-top-9.herokuapp.com/api/register", user)
-        .then(() => {
-            dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: user });
+        .then(res => {
+            dispatch({ type: REGISTERING_USER_SUCCESSFUL, payload: res.data });
             history.replace('/');
         })
         .catch(err => dispatch({ type: REGISTERING_USER_FAILED, 

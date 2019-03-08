@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateAccount, deleteAccount } from '../../actions';
 
 import AccountPage from './AccountPage';
+import LoaderGrid from '../../Reusable/Loader';
 
 class AccountPageView extends Component {
     state = {
@@ -48,7 +49,10 @@ class AccountPageView extends Component {
 
     render () {
         return (
-            <AccountPage 
+            <div>
+                {this.props.deletingUser || this.props.updatingUser
+                ? <LoaderGrid />
+                : <AccountPage 
                     username={this.props.username}
                     updateUser={this.state.updateUser}
                     handleAccountInput={this.handleAccountInput}
@@ -56,7 +60,9 @@ class AccountPageView extends Component {
                     deleteAccount={this.deleteAccount}
                     deleteModal={this.state.deleteModal}
                     toggleDeleteModal={this.toggleDeleteModal}
-            />
+                  />
+                }
+            </div>
         );
     }
 }
@@ -64,6 +70,8 @@ class AccountPageView extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     username: state.username,
+    deletingUser: state.deletingUser,
+    updatingUser: state.updatingUser,
 });
   
 export default connect(
