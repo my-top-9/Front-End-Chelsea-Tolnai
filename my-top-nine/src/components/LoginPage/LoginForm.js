@@ -1,35 +1,40 @@
 import React from 'react';
-import { Card, CardTitle, Form, Input, Button } from 'reactstrap';
-import { NavLink } from 'react-router-dom'
+
+import { 
+    FormWrapper,
+    FormHeader,
+    Input,
+    FormButton,
+    FormNavLink,
+} 
+from '../Reusable/StyledComponents'
 
 const Login = props => {
     return (
-        <Card >
-            <Form onSubmit={props.handleLoginSumbit} id="loginForm">
+        <FormWrapper onSubmit={props.handleLoginSumbit} id="loginForm">
 
-                <CardTitle>My Top Nine</CardTitle>
+            <FormHeader>Login</FormHeader>
 
-                <Input 
-                    type="text"
-                    name="username"
-                    placeholder="Username..."
-                    value={props.user.username} 
-                    onChange={props.handleLoginInput} 
-                />
+            <Input 
+                type="text"
+                name="username"
+                placeholder="Username..."
+                value={props.user.username} 
+                onChange={props.handleLoginInput} 
+            />
 
-                <Input 
-                    type="password"
-                    name="password"
-                    placeholder="Password..." 
-                    value={props.user.password} 
-                    onChange={props.handleLoginInput}
-                />
+            <Input 
+                type="password"
+                name="password"
+                placeholder="Password..." 
+                value={props.user.password} 
+                onChange={props.handleLoginInput}
+            />
 
-                <Button type="submit">Login</Button>
-                <NavLink to="/signup">Sign Up</NavLink>
-            
-            </Form>
-        </Card>
+            <FormButton type="submit">Login</FormButton>
+            <FormNavLink to="/signup">Not a member? Sign Up</FormNavLink>
+        
+        </FormWrapper>
     );
 }
 

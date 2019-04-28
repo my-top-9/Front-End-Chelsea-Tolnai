@@ -1,10 +1,10 @@
 import React from 'react';
 
-const UserPageView = props => {
+import UserPage from './UserPage'
+
+const UserPageView = () => {
     return (
-        <div>
-            {props.username}
-        </div>
+        <UserPage />
     );
 }
 

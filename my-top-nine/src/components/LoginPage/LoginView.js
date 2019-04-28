@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Loader from 'react-loader-spinner';
 
 import { login, signup } from '../actions';
 
+import LoginHeader from './LoginHeader';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
+import Error from '../Reusable/Error';
+import LoaderGrid from '../Reusable/Loader'
 
 class LoginView extends Component {
 
@@ -68,7 +70,7 @@ class LoginView extends Component {
         "username": this.state.newUser.username,
         "password": this.state.newUser.password2
     }
-    this.props.signup(newUser);
+    this.props.signup(newUser, this.props.history);
     this.setState({ 
         user: {
             username: this.state.newUser.username,
@@ -81,17 +83,28 @@ class LoginView extends Component {
             password2: '',
         }
     });
-    document.getElementById("signupForm").reset();
-    this.props.history.replace('/');
     } 
   }
 
   render() {
     return (
         <div>
+            <LoginHeader />
             {(this.props.loggingInUser || this.props.registeringUser)
-            ? <Loader type="Oval" color="black" height="100" width="100" />
+            ? <LoaderGrid />
             : <div>
+                {this.props.loginError && 
+                    <Route 
+                        exact path='/'
+                        render={ props => (
+                            <Error 
+                                {...props}
+                                error={this.props.loginError}
+                                message={`Or try Signing Up!`}
+                            />
+                        )}
+                    />
+                }
                 <Route 
                     exact path='/' 
                     render={ props => (
@@ -103,6 +116,18 @@ class LoginView extends Component {
                     />
                     )} 
                 />
+
+                {this.props.signupError && 
+                    <Route 
+                        exact path='/signup'
+                        render={ props => (
+                            <Error 
+                                {...props}
+                                error={this.props.signupError}
+                            />
+                        )}
+                    />
+                }
                 <Route 
                     exact path='/signup' 
                     render={ props => (
@@ -114,7 +139,6 @@ class LoginView extends Component {
                     />
                     )} 
                 />
-                {this.props.error && <div>{this.props.error} Or try Signing Up!</div>}
               </div>
             }
         </div>
@@ -124,10 +148,11 @@ class LoginView extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
-  loggingInUser: state.loggingInUser,
-  registeringUser: state.registeringUser,
-  error: state.error,
+    user: state.user,
+    loggingInUser: state.loggingInUser,
+    registeringUser: state.registeringUser,
+    signupError: state.signupError,
+    loginError: state.loginError,
 });
 
 export default connect(

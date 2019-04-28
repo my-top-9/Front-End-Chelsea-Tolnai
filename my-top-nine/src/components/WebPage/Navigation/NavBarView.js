@@ -8,12 +8,19 @@ import NavBar from './NavBar';
 class NavBarView extends Component {
 
     state = {
-        dropdownOpen: false
+        dropdownOpen: false,
+        tooltipOpen: false
     };
 
     handleToggleDrop = () => {
         this.setState(prevState => ({
             dropdownOpen: !prevState.dropdownOpen
+        }));
+    };
+
+    handleToggleTooltip = () => {
+        this.setState(prevState => ({
+            tooltipOpen: !prevState.tooltipOpen
         }));
     };
 
@@ -26,7 +33,9 @@ class NavBarView extends Component {
             <NavBar 
                 username={this.props.username}  
                 toggleDrop={this.handleToggleDrop}  
-                dropdownOpen={this.state.dropdownOpen}            
+                dropdownOpen={this.state.dropdownOpen} 
+                toggleTooltip={this.handleToggleTooltip}  
+                tooltipOpen={this.state.tooltipOpen}            
                 logout={this.handleLogout}
             />
         
